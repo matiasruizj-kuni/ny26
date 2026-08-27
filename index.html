@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NY 26 — Itinerario</title>
+<style>
+  :root{
+    --ink:#1a1a1a;
+    --paper:#ffffff;
+    --line:#d8d8d8;
+    --grey:#6e6e6e;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:40px;
+  }
+  header{
+    padding:22px 18px 16px;
+    border-bottom:3px solid var(--ink);
+  }
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--grey);
+    font-weight:700;
+  }
+  h1{
+    margin:4px 0 2px;
+    font-size:34px;
+    font-weight:800;
+    letter-spacing:-0.02em;
+    line-height:1;
+  }
+  .subdate{
+    font-size:14px;
+    color:var(--grey);
+    font-weight:500;
+  }
+  .linewrap{
+    padding:22px 0 6px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    border-bottom:1px solid var(--line);
+  }
+  .linewrap::-webkit-scrollbar{display:none;}
+  .track{
+    position:relative;
+    display:flex;
+    align-items:center;
+    padding:0 18px 22px;
+    min-width:max-content;
+  }
+  .track::before{
+    content:"";
+    position:absolute;
+    left:36px; right:36px; top:20px;
+    height:4px;
+    background:var(--line);
+    z-index:0;
+  }
+  .stop{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:64px;
+    flex:0 0 auto;
+    cursor:pointer;
+    background:none;
+    border:none;
+    padding:0;
+    font-family:inherit;
+  }
+  .bullet{
+    width:40px;height:40px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;
+    font-weight:800;
+    font-size:15px;
+    border:4px solid var(--paper);
+    box-shadow:0 0 0 2px var(--line);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .stop.active .bullet{
+    transform:scale(1.18);
+    box-shadow:0 0 0 3px var(--ink);
+  }
+  .stoplabel{
+    margin-top:8px;
+    font-size:10px;
+    font-weight:700;
+    color:var(--grey);
+    text-align:center;
+    line-height:1.15;
+    white-space:nowrap;
+  }
+  .stop.active .stoplabel{color:var(--ink);}
+  main{padding:22px 18px 0;}
+  .daytag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:5px 12px 5px 10px;
+    border-radius:999px;
+    color:#fff;
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+  }
+  .daytag .dot{width:8px;height:8px;border-radius:50%;background:#fff;opacity:.85;}
+  .dayzone{
+    margin:14px 0 2px;
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:-0.01em;
+  }
+  .daydate{
+    font-size:14px;
+    color:var(--grey);
+    margin-bottom:18px;
+    font-weight:500;
+  }
+  .stopcard{
+    position:relative;
+    padding:14px 0 14px 26px;
+    border-left:2px solid var(--line);
+    margin-left:6px;
+  }
+  .stopcard:last-child{border-left:2px solid transparent;}
+  .stopcard::before{
+    content:"";
+    position:absolute;
+    left:-7px; top:18px;
+    width:12px;height:12px;
+    border-radius:50%;
+    background:var(--ink);
+    border:2px solid var(--paper);
+  }
+  .stoptime{
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--grey);
+  }
+  .stopname{
+    font-size:18px;
+    font-weight:700;
+    margin:2px 0 3px;
+    letter-spacing:-0.01em;
+  }
+  .stopnote{
+    font-size:14px;
+    color:#454545;
+    line-height:1.4;
+  }
+  .optional{
+    display:inline-block;
+    margin-top:6px;
+    font-size:11px;
+    font-weight:700;
+    color:var(--grey);
+    border:1px solid var(--line);
+    padding:2px 8px;
+    border-radius:999px;
+  }
+  footer{
+    margin:30px 18px 0;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    font-size:12px;
+    color:var(--grey);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .navbtns{
+    display:flex;
+    gap:10px;
+    margin-top:26px;
+    padding:0 18px;
+  }
+  .navbtn{
+    flex:1;
+    padding:13px 0;
+    text-align:center;
+    border:2px solid var(--ink);
+    border-radius:10px;
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    background:var(--paper);
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .navbtn:active{background:var(--ink);color:#fff;}
+  .navbtn:disabled{opacity:.3;cursor:default;}
+  .navbtn:disabled:active{background:var(--paper);color:var(--ink);}
+  @media (min-width:640px){
+    header,main{padding-left:32px;padding-right:32px;}
+    h1{font-size:44px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Family Trip · Manhattan &amp; alrededores</div>
+  <h1>NY 26</h1>
+  <div class="subdate">4 → 13 de octubre · Base: Hilton Garden Inn Chelsea</div>
+</header>
+
+<div class="linewrap">
+  <div class="track" id="track"></div>
+</div>
+
+<main>
+  <div class="daytag" id="daytag"><span class="dot"></span><span id="daytagtext"></span></div>
+  <div class="dayzone" id="dayzone"></div>
+  <div class="daydate" id="daydate"></div>
+  <div id="stops"></div>
+</main>
+
+<div class="navbtns">
+  <button class="navbtn" id="prevBtn">← Anterior</button>
+  <button class="navbtn" id="nextBtn">Siguiente →</button>
+</div>
+
+<footer>
+  <span id="footcount"></span>
+  <span>Tocá un círculo para saltar de día</span>
+</footer>
+
+<script>
+const days = [
+  {date:"Sáb 4 oct", zone:"Llegada", color:"#A7A9AC", short:"Llegada",
+   stops:[
+     {time:"Tarde", name:"Chelsea Market", note:"Comida y paseo tranquilo, a pasos del hotel."},
+     {time:"Tarde", name:"Chelsea Waterside Playground", note:"Arenero y toboganes — ideal para bajar el jet lag."}
+   ]},
+  {date:"Dom 5 oct", zone:"Upper West Side", color:"#EE352E", short:"UWS",
+   stops:[
+     {time:"Mañana", name:"Children's Museum of Manhattan", note:"Sede actual de la 83rd St (el nuevo edificio recién abre en 2028)."},
+     {time:"Mañana", name:"American Museum of Natural History", note:"Foco en dinosaurios y la ballena azul."},
+     {time:"Tarde", name:"Diana Ross Playground", note:"Estructuras de madera sobre arena, para los más chicos."}
+   ]},
+  {date:"Lun 6 oct", zone:"Central Park Este / Museum Mile", color:"#00933C", short:"Central Park",
+   stops:[
+     {time:"Mañana", name:"Central Park Zoo", note:"Focas y pingüinos, tamaño justo para no cansarlos."},
+     {time:"Tarde", name:"Ancient Playground", note:"Junto al Met — uno de los mejores playgrounds del parque."},
+     {time:"Tarde", name:"Heckscher Playground", note:"El más grande de Central Park, de vuelta hacia el hotel."}
+   ]},
+  {date:"Mar 7 oct", zone:"Midtown / Rockefeller — Tiendas I", color:"#FF6319", short:"Midtown I",
+   stops:[
+     {time:"Mañana", name:"LEGO Store", note:"Mesas para armar minifiguras."},
+     {time:"Mañana", name:"Nintendo NY", note:"Zona de juego con Mario Kart."},
+     {time:"Mediodía", name:"M&M'S New York", note:"3 pisos en pleno Times Square."},
+     {time:"Atardecer", name:"Top of the Rock", note:"Mirador — mejor luz para fotos al final del día."}
+   ]},
+  {date:"Mié 8 oct", zone:"Chelsea / Meatpacking", color:"#0039A6", short:"Chelsea",
+   stops:[
+     {time:"Mañana", name:"Books of Wonder", note:"Parada corta, librería infantil antes de la High Line."},
+     {time:"Mañana", name:"The High Line", note:"Caminata elevada, cómoda con cochecito."},
+     {time:"Tarde", name:"Little Island", note:"Anfiteatro y plataformas sobre el Hudson."},
+     {time:"Tarde", name:"Chelsea Market", note:"Vuelta por acá antes de cerrar el día."}
+   ]},
+  {date:"Jue 9 oct", zone:"SoHo / Tribeca", color:"#B933AD", short:"SoHo",
+   stops:[
+     {time:"Mañana", name:"Children's Museum of the Arts", note:"Muy manual: pintura y \"ball pit\" de arte."},
+     {time:"Tarde", name:"Pier 25", note:"Playground con barco pirata y arenero gigante."},
+     {time:"Tarde", name:"Pier 26", note:"Pegado al Pier 25, mismo paseo."},
+     {time:"Tarde", name:"Magnolia Bakery", note:"Sede original de Bleecker, parada de postre."},
+     {time:"Opcional", name:"Museum of Ice Cream", note:"Evaluar según cansancio del día."}
+   ]},
+  {date:"Vie 10 oct", zone:"Jersey Gardens", color:"#6E6E6E", short:"Outlet NJ",
+   stops:[
+     {time:"Día completo", name:"Jersey Gardens Outlet", note:"Salida después de las 10am, vuelta antes de las 18-19h. 100% indoor — buen plan si llueve."}
+   ]},
+  {date:"Sáb 11 oct", zone:"Battery Park / Ferries", color:"#FCCC0A", short:"Battery",
+   stops:[
+     {time:"Mañana temprano", name:"MoMath", note:"A 10 min del hotel, antes de salir hacia Whitehall."},
+     {time:"Mañana", name:"Staten Island Ferry", note:"Gratis — pasa cerca de la Estatua de la Libertad."},
+     {time:"Mediodía", name:"Battery Playscape", note:"Al lado de la terminal, toboganes de granito."},
+     {time:"Tarde", name:"Governors Island", note:"Ferry desde la terminal vecina, tarde al aire libre."}
+   ]},
+  {date:"Dom 12 oct", zone:"Midtown West — Tiendas II", color:"#996633", short:"Midtown II",
+   stops:[
+     {time:"Mañana", name:"FAO Schwarz", note:"Jellycat Diner — reservar con anticipación."},
+     {time:"Mañana", name:"FDNY Fire Zone", note:"A 3 cuadras de FAO Schwarz."},
+     {time:"Tarde", name:"Intrepid Museum", note:"Submarino y transbordador espacial, dale tiempo."}
+   ]},
+  {date:"Lun 13 oct", zone:"Salida", color:"#A7A9AC", short:"Salida",
+   stops:[
+     {time:"Mañana", name:"Cerca del hotel", note:"Mañana tranquila, sin planes grandes."},
+     {time:"Mediodía", name:"Viaje al aeropuerto", note:"Cierre del viaje."}
+   ]}
+];
+
+let current = 0;
+const track = document.getElementById('track');
+const stopsEl = document.getElementById('stops');
+const dayzone = document.getElementById('dayzone');
+const daydate = document.getElementById('daydate');
+const daytag = document.getElementById('daytag');
+const daytagtext = document.getElementById('daytagtext');
+const footcount = document.getElementById('footcount');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+days.forEach((d,i)=>{
+  const btn = document.createElement('button');
+  btn.className = 'stop';
+  btn.innerHTML = `<span class="bullet" style="background:${d.color}">${i+1}</span><span class="stoplabel">${d.short}</span>`;
+  btn.addEventListener('click', ()=>render(i));
+  track.appendChild(btn);
+});
+
+function render(i){
+  current = i;
+  const d = days[i];
+  [...track.children].forEach((el,idx)=>el.classList.toggle('active', idx===i));
+  daytag.style.background = d.color;
+  daytagtext.textContent = `Día ${i+1} de ${days.length}`;
+  dayzone.textContent = d.zone;
+  daydate.textContent = d.date;
+  stopsEl.innerHTML = '';
+  d.stops.forEach(s=>{
+    const card = document.createElement('div');
+    card.className = 'stopcard';
+    card.innerHTML = `
+      <div class="stoptime">${s.time}</div>
+      <div class="stopname">${s.name}</div>
+      <div class="stopnote">${s.note}</div>
+    `;
+    stopsEl.appendChild(card);
+  });
+  footcount.textContent = `${d.stops.length} paradas`;
+  prevBtn.disabled = i===0;
+  nextBtn.disabled = i===days.length-1;
+  document.querySelector(`.track`).children[i].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+}
+
+prevBtn.addEventListener('click', ()=>{ if(current>0) render(current-1); });
+nextBtn.addEventListener('click', ()=>{ if(current<days.length-1) render(current+1); });
+
+render(0);
+</script>
+
+</body>
+</html>
