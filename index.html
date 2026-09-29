@@ -20,6 +20,8 @@
     -webkit-font-smoothing:antialiased;
     padding-bottom:40px;
   }
+
+  /* ===== Header ===== */
   header{
     padding:22px 18px 16px;
     border-bottom:3px solid var(--ink);
@@ -43,6 +45,8 @@
     color:var(--grey);
     font-weight:500;
   }
+
+  /* ===== Line map (signature element) ===== */
   .linewrap{
     padding:22px 0 6px;
     overflow-x:auto;
@@ -104,6 +108,8 @@
     white-space:nowrap;
   }
   .stop.active .stoplabel{color:var(--ink);}
+
+  /* ===== Day panel ===== */
   main{padding:22px 18px 0;}
   .daytag{
     display:inline-flex;
@@ -130,6 +136,7 @@
     margin-bottom:18px;
     font-weight:500;
   }
+
   .stopcard{
     position:relative;
     padding:14px 0 14px 26px;
@@ -174,6 +181,7 @@
     padding:2px 8px;
     border-radius:999px;
   }
+
   footer{
     margin:30px 18px 0;
     padding-top:16px;
@@ -207,6 +215,7 @@
   .navbtn:active{background:var(--ink);color:#fff;}
   .navbtn:disabled{opacity:.3;cursor:default;}
   .navbtn:disabled:active{background:var(--paper);color:var(--ink);}
+
   @media (min-width:640px){
     header,main{padding-left:32px;padding-right:32px;}
     h1{font-size:44px;}
@@ -266,6 +275,7 @@ const days = [
      {time:"Mañana", name:"LEGO Store", note:"Mesas para armar minifiguras."},
      {time:"Mañana", name:"Nintendo NY", note:"Zona de juego con Mario Kart."},
      {time:"Mediodía", name:"M&M'S New York", note:"3 pisos en pleno Times Square."},
+     {time:"Mediodía", name:"Midtown Comics Times Square", note:"Comics, figuras de acción y merch — a pasos de Times Square."},
      {time:"Atardecer", name:"Top of the Rock", note:"Mirador — mejor luz para fotos al final del día."}
    ]},
   {date:"Mié 8 oct", zone:"Chelsea / Meatpacking", color:"#0039A6", short:"Chelsea",
@@ -273,11 +283,12 @@ const days = [
      {time:"Mañana", name:"Books of Wonder", note:"Parada corta, librería infantil antes de la High Line."},
      {time:"Mañana", name:"The High Line", note:"Caminata elevada, cómoda con cochecito."},
      {time:"Tarde", name:"Little Island", note:"Anfiteatro y plataformas sobre el Hudson."},
-     {time:"Tarde", name:"Chelsea Market", note:"Vuelta por acá antes de cerrar el día."}
+     {time:"Tarde", name:"Little Spain (Hudson Yards)", note:"Cierre natural del paseo, en la punta norte de la High Line."}
    ]},
   {date:"Jue 9 oct", zone:"SoHo / Tribeca", color:"#B933AD", short:"SoHo",
    stops:[
      {time:"Mañana", name:"Children's Museum of the Arts", note:"Muy manual: pintura y \"ball pit\" de arte."},
+     {time:"Mediodía", name:"Bubby's Tribeca", note:"Clásico americano, pancakes y brunch todo el día."},
      {time:"Tarde", name:"Pier 25", note:"Playground con barco pirata y arenero gigante."},
      {time:"Tarde", name:"Pier 26", note:"Pegado al Pier 25, mismo paseo."},
      {time:"Tarde", name:"Magnolia Bakery", note:"Sede original de Bleecker, parada de postre."},
@@ -289,13 +300,16 @@ const days = [
    ]},
   {date:"Sáb 11 oct", zone:"Battery Park / Ferries", color:"#FCCC0A", short:"Battery",
    stops:[
+     {time:"Mañana temprano", name:"Eataly Flatiron", note:"Desayuno rápido de camino, a pasos de MoMath."},
      {time:"Mañana temprano", name:"MoMath", note:"A 10 min del hotel, antes de salir hacia Whitehall."},
      {time:"Mañana", name:"Staten Island Ferry", note:"Gratis — pasa cerca de la Estatua de la Libertad."},
      {time:"Mediodía", name:"Battery Playscape", note:"Al lado de la terminal, toboganes de granito."},
-     {time:"Tarde", name:"Governors Island", note:"Ferry desde la terminal vecina, tarde al aire libre."}
+     {time:"Tarde", name:"Governors Island", note:"Ferry desde la terminal vecina, tarde al aire libre."},
+     {time:"Noche", name:"Time Out Market (DUMBO)", note:"Cruzando a Brooklyn en ferry, food hall con vista al skyline para cerrar el día."}
    ]},
   {date:"Dom 12 oct", zone:"Midtown West — Tiendas II", color:"#996633", short:"Midtown II",
    stops:[
+     {time:"Mañana", name:"In Common", note:"Brunch tranquilo en Hell's Kitchen antes de arrancar el día."},
      {time:"Mañana", name:"FAO Schwarz", note:"Jellycat Diner — reservar con anticipación."},
      {time:"Mañana", name:"FDNY Fire Zone", note:"A 3 cuadras de FAO Schwarz."},
      {time:"Tarde", name:"Intrepid Museum", note:"Submarino y transbordador espacial, dale tiempo."}
@@ -303,7 +317,8 @@ const days = [
   {date:"Lun 13 oct", zone:"Salida", color:"#A7A9AC", short:"Salida",
    stops:[
      {time:"Mañana", name:"Cerca del hotel", note:"Mañana tranquila, sin planes grandes."},
-     {time:"Mediodía", name:"Viaje al aeropuerto", note:"Cierre del viaje."}
+     {time:"Mediodía", name:"Pier 57 (Market 57)", note:"Almuerzo cerca del hotel, a 15 min caminando, antes de ir al aeropuerto."},
+     {time:"Tarde", name:"Viaje al aeropuerto", note:"Cierre del viaje."}
    ]}
 ];
 
