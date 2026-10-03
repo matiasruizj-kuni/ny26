@@ -253,39 +253,35 @@
 
 <script>
 const days = [
-  {date:"Sáb 4 oct", zone:"Llegada", color:"#A7A9AC", short:"Llegada",
+  {date:"Dom 4 oct", zone:"Llegada", color:"#A7A9AC", short:"Llegada",
    stops:[
      {time:"Tarde", name:"Chelsea Market", note:"Comida y paseo tranquilo, a pasos del hotel."},
      {time:"Tarde", name:"Chelsea Waterside Playground", note:"Arenero y toboganes — ideal para bajar el jet lag."}
    ]},
-  {date:"Dom 5 oct", zone:"Upper West Side", color:"#EE352E", short:"UWS",
+  {date:"Lun 5 oct", zone:"Upper West Side", color:"#EE352E", short:"UWS",
    stops:[
      {time:"Mañana", name:"Children's Museum of Manhattan", note:"Sede actual de la 83rd St (el nuevo edificio recién abre en 2028)."},
      {time:"Mañana", name:"American Museum of Natural History", note:"Foco en dinosaurios y la ballena azul."},
      {time:"Tarde", name:"Diana Ross Playground", note:"Estructuras de madera sobre arena, para los más chicos."}
    ]},
-  {date:"Lun 6 oct", zone:"Central Park Este / Museum Mile", color:"#00933C", short:"Central Park",
+  {date:"Mar 6 oct", zone:"Central Park Este / Museum Mile", color:"#00933C", short:"Central Park",
    stops:[
      {time:"Mañana", name:"Central Park Zoo", note:"Focas y pingüinos, tamaño justo para no cansarlos."},
      {time:"Tarde", name:"Ancient Playground", note:"Junto al Met — uno de los mejores playgrounds del parque."},
      {time:"Tarde", name:"Heckscher Playground", note:"El más grande de Central Park, de vuelta hacia el hotel."}
    ]},
-  {date:"Mar 7 oct", zone:"Midtown / Rockefeller — Tiendas I", color:"#FF6319", short:"Midtown I",
+  {date:"Mié 7 oct", zone:"Jersey Gardens", color:"#6E6E6E", short:"Outlet NJ",
    stops:[
-     {time:"Mañana", name:"LEGO Store", note:"Mesas para armar minifiguras."},
-     {time:"Mañana", name:"Nintendo NY", note:"Zona de juego con Mario Kart."},
-     {time:"Mediodía", name:"M&M'S New York", note:"3 pisos en pleno Times Square."},
-     {time:"Mediodía", name:"Midtown Comics Times Square", note:"Comics, figuras de acción y merch — a pasos de Times Square."},
-     {time:"Atardecer", name:"Top of the Rock", note:"Mirador — mejor luz para fotos al final del día."}
+     {time:"Día completo", name:"Jersey Gardens Outlet", note:"Salida después de las 10am, vuelta antes de las 18-19h. 100% indoor — buen plan si llueve."}
    ]},
-  {date:"Mié 8 oct", zone:"Chelsea / Meatpacking", color:"#0039A6", short:"Chelsea",
+  {date:"Jue 8 oct", zone:"Chelsea / Meatpacking", color:"#0039A6", short:"Chelsea",
    stops:[
      {time:"Mañana", name:"Books of Wonder", note:"Parada corta, librería infantil antes de la High Line."},
      {time:"Mañana", name:"The High Line", note:"Caminata elevada, cómoda con cochecito."},
      {time:"Tarde", name:"Little Island", note:"Anfiteatro y plataformas sobre el Hudson."},
      {time:"Tarde", name:"Little Spain (Hudson Yards)", note:"Cierre natural del paseo, en la punta norte de la High Line."}
    ]},
-  {date:"Jue 9 oct", zone:"SoHo / Tribeca", color:"#B933AD", short:"SoHo",
+  {date:"Vie 9 oct", zone:"SoHo / Tribeca", color:"#B933AD", short:"SoHo",
    stops:[
      {time:"Mañana", name:"Children's Museum of the Arts", note:"Muy manual: pintura y \"ball pit\" de arte."},
      {time:"Mediodía", name:"Bubby's Tribeca", note:"Clásico americano, pancakes y brunch todo el día."},
@@ -294,11 +290,15 @@ const days = [
      {time:"Tarde", name:"Magnolia Bakery", note:"Sede original de Bleecker, parada de postre."},
      {time:"Opcional", name:"Museum of Ice Cream", note:"Evaluar según cansancio del día."}
    ]},
-  {date:"Vie 10 oct", zone:"Jersey Gardens", color:"#6E6E6E", short:"Outlet NJ",
+  {date:"Sáb 10 oct", zone:"Midtown / Rockefeller — Tiendas I", color:"#FF6319", short:"Midtown I",
    stops:[
-     {time:"Día completo", name:"Jersey Gardens Outlet", note:"Salida después de las 10am, vuelta antes de las 18-19h. 100% indoor — buen plan si llueve."}
+     {time:"Mañana", name:"LEGO Store", note:"Mesas para armar minifiguras."},
+     {time:"Mañana", name:"Nintendo NY", note:"Zona de juego con Mario Kart."},
+     {time:"Mediodía", name:"M&M'S New York", note:"3 pisos en pleno Times Square."},
+     {time:"Mediodía", name:"Midtown Comics Times Square", note:"Comics, figuras de acción y merch — a pasos de Times Square."},
+     {time:"Atardecer", name:"Top of the Rock", note:"Mirador — mejor luz para fotos al final del día."}
    ]},
-  {date:"Sáb 11 oct", zone:"Battery Park / Ferries", color:"#FCCC0A", short:"Battery",
+  {date:"Dom 11 oct", zone:"Battery Park / Ferries", color:"#FCCC0A", short:"Battery",
    stops:[
      {time:"Mañana temprano", name:"Eataly Flatiron", note:"Desayuno rápido de camino, a pasos de MoMath."},
      {time:"Mañana temprano", name:"MoMath", note:"A 10 min del hotel, antes de salir hacia Whitehall."},
@@ -307,14 +307,14 @@ const days = [
      {time:"Tarde", name:"Governors Island", note:"Ferry desde la terminal vecina, tarde al aire libre."},
      {time:"Noche", name:"Time Out Market (DUMBO)", note:"Cruzando a Brooklyn en ferry, food hall con vista al skyline para cerrar el día."}
    ]},
-  {date:"Dom 12 oct", zone:"Midtown West — Tiendas II", color:"#996633", short:"Midtown II",
+  {date:"Lun 12 oct", zone:"Midtown West — Tiendas II", color:"#996633", short:"Midtown II",
    stops:[
      {time:"Mañana", name:"In Common", note:"Brunch tranquilo en Hell's Kitchen antes de arrancar el día."},
      {time:"Mañana", name:"FAO Schwarz", note:"Jellycat Diner — reservar con anticipación."},
      {time:"Mañana", name:"FDNY Fire Zone", note:"A 3 cuadras de FAO Schwarz."},
      {time:"Tarde", name:"Intrepid Museum", note:"Submarino y transbordador espacial, dale tiempo."}
    ]},
-  {date:"Lun 13 oct", zone:"Salida", color:"#A7A9AC", short:"Salida",
+  {date:"Mar 13 oct", zone:"Salida", color:"#A7A9AC", short:"Salida",
    stops:[
      {time:"Mañana", name:"Cerca del hotel", note:"Mañana tranquila, sin planes grandes."},
      {time:"Mediodía", name:"Pier 57 (Market 57)", note:"Almuerzo cerca del hotel, a 15 min caminando, antes de ir al aeropuerto."},
